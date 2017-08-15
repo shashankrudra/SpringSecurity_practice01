@@ -30,7 +30,7 @@ import com.dacl.exception.InvalidJwtTokenException;
 
 
 @RestController@RequestMapping(value="/api/auth")
-public class RefreshTokenEndpoint {
+public class RefreshTokenController {
     @Autowired private JwtTokenFactory tokenFactory;
     @Autowired private JwtSettings jwtSettings;
     @Autowired private Environment env;

@@ -25,7 +25,7 @@
 	<s:http pattern="/css/**" security="none"/>
 	<s:http pattern="/login.jsp*" security="none"/>
 
-	<bean name="restAuthenticationEntryPoint" class="com.deloitte.ucl.configuration.security.rest.RestAuthenticationEntryPoint"/> 
+	<bean name="restAuthenticationEntryPoint" class="com.dacl.configuration.security.rest.RestAuthenticationEntryPoint"/> 
 	<bean name="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
 	<!-- <s:global-method-security secured-annotations="enabled"/> -->
@@ -58,13 +58,13 @@
 		</constructor-arg>
 	</bean>
     
-    <bean id="uclUserDetailsService" class="com.deloitte.ucl.configuration.security.service.UCLUserDetailsService" />
+    <bean id="uclUserDetailsService" class="com.dacl.configuration.security.service.UCLUserDetailsService" />
     
     <!-- <bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
     	<property name="userDetailsService" ref="uclUserDetailsService" />
     </bean> -->
     
-    <bean id="uCLDaoAuthenticationProvider" class="com.deloitte.ucl.configuration.security.custom.UCLDaoAuthenticationProvider">
+    <bean id="uCLDaoAuthenticationProvider" class="com.dacl.configuration.security.custom.UCLDaoAuthenticationProvider">
 		<property name="userDetailsService">
 			<ref bean="uclUserDetailsService" />
 		</property>
@@ -79,7 +79,7 @@
 		</property>
 	</bean> -->
 	
-	<bean id="skipPathRequestMatcher" class="com.deloitte.ucl.configuration.security.custom.SkipPathRequestMatcher">
+	<bean id="skipPathRequestMatcher" class="com.dacl.configuration.security.custom.SkipPathRequestMatcher">
 		<constructor-arg index="0">
 			<list>
                 <value>"/api/auth/token"</value>
@@ -89,7 +89,7 @@
 		<constructor-arg index="1" value="/api/**" />
 	</bean>
 	
-	<bean id="ajaxLoginProcessingFilter" class="com.deloitte.ucl.configuration.security.ajax.AjaxLoginProcessingFilter">
+	<bean id="ajaxLoginProcessingFilter" class="com.dacl.configuration.security.ajax.AjaxLoginProcessingFilter">
 		<constructor-arg index="0" value="/api/auth/login" />
 		<constructor-arg index="1" ref="ajaxAwareAuthenticationSuccessHandler"/>
 		<constructor-arg index="2" ref="ajaxAwareAuthenticationFailureHandler"/>
@@ -99,7 +99,7 @@
 		</property>
 	</bean>
 	
-	<bean id="jwtTokenAuthenticationProcessingFilter" class="com.deloitte.ucl.configuration.security.jwt.JwtTokenAuthenticationProcessingFilter">
+	<bean id="jwtTokenAuthenticationProcessingFilter" class="com.dacl.configuration.security.jwt.JwtTokenAuthenticationProcessingFilter">
 		<constructor-arg index="0" ref="ajaxAwareAuthenticationFailureHandler"/>
 		<constructor-arg index="1" ref="jwtHeaderTokenExtractor"/>
 		<constructor-arg index="2" ref="skipPathRequestMatcher"/>
@@ -109,30 +109,30 @@
 	</bean>
 	
 	<!-- tokenExpirationTime, tokenIssuer, tokenSigningKey, refreshTokenExpTime -->
-	<bean id="jwtSettings" class="com.deloitte.ucl.configuration.security.jwt.JwtSettings">
+	<bean id="jwtSettings" class="com.dacl.configuration.security.jwt.JwtSettings">
 		<constructor-arg index="0" value="1" />
-		<constructor-arg index="1" value="http://deloitte.com" />
+		<constructor-arg index="1" value="http://google.com" />
 		<constructor-arg index="2" value="1!w5t(-!1czqn-s2(-4%9_rpjayodij6g@(y0o^7gxz-k8b5)!%" />
 		<constructor-arg index="3" value="4" />
 	</bean>
 	
-	<bean id="jwtAuthenticationProvider" class="com.deloitte.ucl.configuration.security.jwt.JwtAuthenticationProvider">
+	<bean id="jwtAuthenticationProvider" class="com.dacl.configuration.security.jwt.JwtAuthenticationProvider">
 		<constructor-arg ref="jwtSettings" />
 	</bean>
 	
-	<bean id="tokenFactory" class="com.deloitte.ucl.configuration.security.jwt.JwtTokenFactory">
+	<bean id="tokenFactory" class="com.dacl.configuration.security.jwt.JwtTokenFactory">
 		<constructor-arg ref="jwtSettings" />
 	</bean> 	
 	
  	<bean id="jodaMapper" class="com.fasterxml.jackson.datatype.joda.JodaMapper" />
- 	<bean id="jwtHeaderTokenExtractor" class="com.deloitte.ucl.configuration.security.jwt.JwtHeaderTokenExtractor" />
+ 	<bean id="jwtHeaderTokenExtractor" class="com.dacl.configuration.security.jwt.JwtHeaderTokenExtractor" />
  	
-	<bean id="ajaxAwareAuthenticationSuccessHandler" class="com.deloitte.ucl.configuration.security.ajax.AjaxAwareAuthenticationSuccessHandler">
+	<bean id="ajaxAwareAuthenticationSuccessHandler" class="com.dacl.configuration.security.ajax.AjaxAwareAuthenticationSuccessHandler">
 		<constructor-arg ref="jodaMapper" />
 		<constructor-arg ref="tokenFactory"/>
 	</bean>
 	
-	<bean id="ajaxAwareAuthenticationFailureHandler" class="com.deloitte.ucl.configuration.security.ajax.AjaxAwareAuthenticationFailureHandler">
+	<bean id="ajaxAwareAuthenticationFailureHandler" class="com.dacl.configuration.security.ajax.AjaxAwareAuthenticationFailureHandler">
 		<constructor-arg ref="jodaMapper" />
 	</bean>
 </beans>
