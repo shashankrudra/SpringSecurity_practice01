@@ -1,5 +1,5 @@
-package com.deloitte.ucl.configuration.security.jwt;
-import com.deloitte.ucl.configuration.security.model.JwtToken;
+package com.dacl.configuration.security.jwt;
+import com.dacl.configuration.security.model.JwtToken;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.jsonwebtoken.Claims;

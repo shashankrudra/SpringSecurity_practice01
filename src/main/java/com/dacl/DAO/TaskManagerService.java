@@ -1,4 +1,4 @@
-package com.deloitte.ucl.DAO;
+package com.dacl.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,8 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-//import com.deloitte.ucl.configuration.DBUtility;
-import com.deloitte.ucl.model.Task;
+//import com.dacl.configuration.DBUtility;
+import com.dacl.model.Task;
 
 @Service
 public class TaskManagerService {

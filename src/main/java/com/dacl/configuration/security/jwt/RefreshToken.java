@@ -1,10 +1,10 @@
-package com.deloitte.ucl.configuration.security.jwt;
+package com.dacl.configuration.security.jwt;
 
 import java.util.List;
 
 import org.springframework.security.authentication.BadCredentialsException;
 
-import com.deloitte.ucl.configuration.security.model.Scopes;
+import com.dacl.configuration.security.model.Scopes;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;

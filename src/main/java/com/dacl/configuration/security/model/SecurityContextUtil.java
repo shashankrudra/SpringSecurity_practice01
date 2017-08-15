@@ -1,9 +1,9 @@
-package com.deloitte.ucl.configuration.security.model;
+package com.dacl.configuration.security.model;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import com.deloitte.ucl.configuration.security.jwt.UserContext;
+import com.dacl.configuration.security.jwt.UserContext;
 
 
 public class SecurityContextUtil {

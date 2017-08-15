@@ -1,4 +1,4 @@
-package com.deloitte.ucl.configuration.security.ajax;
+package com.dacl.configuration.security.ajax;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

@@ -1,4 +1,4 @@
-package com.deloitte.ucl.configuration.security;
+package com.dacl.configuration.security;
 
 public class Constants {
 	public static final String APP_NAME = "UCL_Simple";

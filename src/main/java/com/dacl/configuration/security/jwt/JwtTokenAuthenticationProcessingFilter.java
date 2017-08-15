@@ -1,4 +1,4 @@
-package com.deloitte.ucl.configuration.security.jwt;
+package com.dacl.configuration.security.jwt;
 
 
 import java.io.IOException;
@@ -16,7 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.util.matcher.RequestMatcher;
-import static com.deloitte.ucl.configuration.security.Constants.*;
+import static com.dacl.configuration.security.Constants.*;
 
 public class JwtTokenAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
     private final AuthenticationFailureHandler failureHandler;

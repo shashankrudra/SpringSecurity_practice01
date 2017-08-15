@@ -1,4 +1,4 @@
-package com.deloitte.ucl.configuration.security.service;
+package com.dacl.configuration.security.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +12,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.deloitte.ucl.configuration.security.model.RoleEntity;
-import com.deloitte.ucl.configuration.security.model.UCLUser;
-import com.deloitte.ucl.configuration.security.model.UserAdminEntityManager;
-import com.deloitte.ucl.configuration.security.model.UserEntity;
+import com.dacl.configuration.security.model.RoleEntity;
+import com.dacl.configuration.security.model.UCLUser;
+import com.dacl.configuration.security.model.UserAdminEntityManager;
+import com.dacl.configuration.security.model.UserEntity;
 
 
 /**

@@ -1,4 +1,4 @@
-package com.deloitte.ucl.model;
+package com.dacl.model;
 
 public class DcComments {
 	private String comment;

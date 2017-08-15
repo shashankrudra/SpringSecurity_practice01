@@ -1,4 +1,4 @@
-package com.deloitte.ucl.configuration.security.ajax;
+package com.dacl.configuration.security.ajax;
 
 
 import java.io.IOException;
@@ -17,9 +17,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import com.deloitte.ucl.configuration.security.jwt.JwtTokenFactory;
-import com.deloitte.ucl.configuration.security.model.JwtToken;
-import com.deloitte.ucl.configuration.security.model.UCLUser;
+import com.dacl.configuration.security.jwt.JwtTokenFactory;
+import com.dacl.configuration.security.model.JwtToken;
+import com.dacl.configuration.security.model.UCLUser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 

@@ -1,8 +1,8 @@
-package com.deloitte.ucl.configuration.security.jwt;
+package com.dacl.configuration.security.jwt;
 
 import org.springframework.security.core.AuthenticationException;
 
-import com.deloitte.ucl.configuration.security.model.JwtToken;
+import com.dacl.configuration.security.model.JwtToken;
 
 
 public class JwtExpiredTokenException extends AuthenticationException {

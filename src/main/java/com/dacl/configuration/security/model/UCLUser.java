@@ -1,4 +1,4 @@
-package com.deloitte.ucl.configuration.security.model;
+package com.dacl.configuration.security.model;
 
 import java.util.ArrayList;
 import java.util.Collection;

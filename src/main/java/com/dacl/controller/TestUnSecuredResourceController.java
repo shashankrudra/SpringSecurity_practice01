@@ -1,4 +1,4 @@
-package com.deloitte.ucl.controller;
+package com.dacl.controller;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.deloitte.ucl.exception.ErrorInfo;
+import com.dacl.exception.ErrorInfo;
 
 @RestController
 @RequestMapping(value = "/test")

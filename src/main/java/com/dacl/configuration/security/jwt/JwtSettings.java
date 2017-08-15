@@ -1,7 +1,7 @@
-package com.deloitte.ucl.configuration.security.jwt;
+package com.dacl.configuration.security.jwt;
 
 
-import com.deloitte.ucl.configuration.security.model.JwtToken;
+import com.dacl.configuration.security.model.JwtToken;
 
 //@Configuration
 public class JwtSettings {

@@ -1,4 +1,4 @@
-package com.deloitte.ucl.configuration.security.jwt;
+package com.dacl.configuration.security.jwt;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,9 +13,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import com.deloitte.ucl.configuration.security.model.JwtToken;
-import com.deloitte.ucl.configuration.security.model.Scopes;
-import com.deloitte.ucl.configuration.security.model.UCLUser;
+import com.dacl.configuration.security.model.JwtToken;
+import com.dacl.configuration.security.model.Scopes;
+import com.dacl.configuration.security.model.UCLUser;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
