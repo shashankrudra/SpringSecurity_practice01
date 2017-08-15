@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:s="http://www.springframework.org/schema/security"
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+    http://www.springframework.org/schema/security
+    http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+
+	<s:http pattern="/src/**" security="none"/>
+	<s:http pattern="/config/**" security="none"/>
+	<s:http pattern="/dist/" security="none"/>
+	<s:http pattern="/tslint.js/**" security="none"/>
+	<s:http pattern="/tsconfig.json" security="none"/>
+	<s:http pattern="/node_modules/**" security="none"/>
+	<s:http pattern="/typedoc.json" security="none"/>
+	<s:http pattern="/appresources/**" security="none"/>
+	<s:http pattern="/package.json" security="none"/>
+	<s:http pattern="/webpack.config.js" security="none"/>
+	<s:http pattern="/UCL_Simple/webpack-dev-server.js" security="none"/>
+	<s:http pattern="/webpack-dev-server.js" security="none"/>
+	<s:http pattern="/vendor.bundle.js" security="none"/>
+	<s:http pattern="/polyfills.bundle.js" security="none"/>
+	<s:http pattern="/main.bundle.js" security="none"/>
+	<s:http pattern="/css/**" security="none"/>
+	<s:http pattern="/login.jsp*" security="none"/>
+
+	<bean name="restAuthenticationEntryPoint" class="com.deloitte.ucl.configuration.security.rest.RestAuthenticationEntryPoint"/> 
+	<bean name="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
+	<!-- <s:global-method-security secured-annotations="enabled"/> -->
+
+    <s:http  
+    	create-session="stateless"
+    	entry-point-ref="restAuthenticationEntryPoint"
+        authentication-manager-ref="authenticationManager">
+        
+        <s:csrf disabled="true"/>
+        
+        <s:intercept-url pattern="/api/auth/login" access="permitAll"/>
+        <s:intercept-url pattern="/api/auth/token" access="permitAll"/> 
+		<s:intercept-url pattern="/api/*" access="authenticated"/>
+ 
+		<s:custom-filter before="PRE_AUTH_FILTER" ref="ajaxLoginProcessingFilter"/>
+	    <s:custom-filter before="LOGIN_PAGE_FILTER" ref="jwtTokenAuthenticationProcessingFilter"/>
+    </s:http>
+    
+   <!--  <s:authentication-manager>
+	    <s:authentication-provider ref="uCLDaoAuthenticationProvider"/>
+	</s:authentication-manager> -->
+	
+	<bean id="authenticationManager" class="org.springframework.security.authentication.ProviderManager">
+		<constructor-arg>
+			<list>
+				<ref bean="uCLDaoAuthenticationProvider"/>
+				<ref bean="jwtAuthenticationProvider"/>
+			</list>
+		</constructor-arg>
+	</bean>
+    
+    <bean id="uclUserDetailsService" class="com.deloitte.ucl.configuration.security.service.UCLUserDetailsService" />
+    
+    <!-- <bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+    	<property name="userDetailsService" ref="uclUserDetailsService" />
+    </bean> -->
+    
+    <bean id="uCLDaoAuthenticationProvider" class="com.deloitte.ucl.configuration.security.custom.UCLDaoAuthenticationProvider">
+		<property name="userDetailsService">
+			<ref bean="uclUserDetailsService" />
+		</property>
+	</bean>
+
+	<!-- <bean id="authenticationManagerBuilder" class="org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder">
+		<property name="authenticationProviders">
+			<list>
+				<bean id="uclDaoAuthProvider"/>
+				<bean id="jwtAuthenticationProvider"/>
+			</list>
+		</property>
+	</bean> -->
+	
+	<bean id="skipPathRequestMatcher" class="com.deloitte.ucl.configuration.security.custom.SkipPathRequestMatcher">
+		<constructor-arg index="0">
+			<list>
+                <value>"/api/auth/token"</value>
+                <value>"/api/auth/login"</value>
+            </list>
+        </constructor-arg>
+		<constructor-arg index="1" value="/api/**" />
+	</bean>
+	
+	<bean id="ajaxLoginProcessingFilter" class="com.deloitte.ucl.configuration.security.ajax.AjaxLoginProcessingFilter">
+		<constructor-arg index="0" value="/api/auth/login" />
+		<constructor-arg index="1" ref="ajaxAwareAuthenticationSuccessHandler"/>
+		<constructor-arg index="2" ref="ajaxAwareAuthenticationFailureHandler"/>
+		<constructor-arg index="3" ref="jodaMapper" />
+		<property name="authenticationManager">
+			<ref bean="authenticationManager"/>
+		</property>
+	</bean>
+	
+	<bean id="jwtTokenAuthenticationProcessingFilter" class="com.deloitte.ucl.configuration.security.jwt.JwtTokenAuthenticationProcessingFilter">
+		<constructor-arg index="0" ref="ajaxAwareAuthenticationFailureHandler"/>
+		<constructor-arg index="1" ref="jwtHeaderTokenExtractor"/>
+		<constructor-arg index="2" ref="skipPathRequestMatcher"/>
+		<property name="authenticationManager">
+			<ref bean="authenticationManager"/>
+		</property>
+	</bean>
+	
+	<!-- tokenExpirationTime, tokenIssuer, tokenSigningKey, refreshTokenExpTime -->
+	<bean id="jwtSettings" class="com.deloitte.ucl.configuration.security.jwt.JwtSettings">
+		<constructor-arg index="0" value="1" />
+		<constructor-arg index="1" value="http://deloitte.com" />
+		<constructor-arg index="2" value="1!w5t(-!1czqn-s2(-4%9_rpjayodij6g@(y0o^7gxz-k8b5)!%" />
+		<constructor-arg index="3" value="4" />
+	</bean>
+	
+	<bean id="jwtAuthenticationProvider" class="com.deloitte.ucl.configuration.security.jwt.JwtAuthenticationProvider">
+		<constructor-arg ref="jwtSettings" />
+	</bean>
+	
+	<bean id="tokenFactory" class="com.deloitte.ucl.configuration.security.jwt.JwtTokenFactory">
+		<constructor-arg ref="jwtSettings" />
+	</bean> 	
+	
+ 	<bean id="jodaMapper" class="com.fasterxml.jackson.datatype.joda.JodaMapper" />
+ 	<bean id="jwtHeaderTokenExtractor" class="com.deloitte.ucl.configuration.security.jwt.JwtHeaderTokenExtractor" />
+ 	
+	<bean id="ajaxAwareAuthenticationSuccessHandler" class="com.deloitte.ucl.configuration.security.ajax.AjaxAwareAuthenticationSuccessHandler">
+		<constructor-arg ref="jodaMapper" />
+		<constructor-arg ref="tokenFactory"/>
+	</bean>
+	
+	<bean id="ajaxAwareAuthenticationFailureHandler" class="com.deloitte.ucl.configuration.security.ajax.AjaxAwareAuthenticationFailureHandler">
+		<constructor-arg ref="jodaMapper" />
+	</bean>
+</beans>
