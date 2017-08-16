@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 import com.dacl.configuration.security.jwt.JwtTokenFactory;
 import com.dacl.configuration.security.model.JwtToken;
-import com.dacl.configuration.security.model.UCLUser;
+import com.dacl.configuration.security.model.CUser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -37,7 +37,7 @@ public class AjaxAwareAuthenticationSuccessHandler implements AuthenticationSucc
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws IOException, ServletException {
-        UCLUser userContext = (UCLUser) authentication.getPrincipal();
+        CUser userContext = (CUser) authentication.getPrincipal();
         
         JwtToken accessToken = tokenFactory.createAccessJwtToken(userContext);
         JwtToken refreshToken = tokenFactory.createRefreshToken(userContext);

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 import com.dacl.configuration.security.model.JwtToken;
 import com.dacl.configuration.security.model.Scopes;
-import com.dacl.configuration.security.model.UCLUser;
+import com.dacl.configuration.security.model.CUser;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -43,7 +43,7 @@ public class JwtTokenFactory {
      * @param roles
      * @return
      */
-    public AccessJwtToken createAccessJwtToken(UCLUser userContext) {
+    public AccessJwtToken createAccessJwtToken(CUser userContext) {
         if (StringUtils.isBlank(userContext.getUsername())) 
             throw new IllegalArgumentException("Cannot create JWT Token without username");
 
@@ -76,7 +76,7 @@ public class JwtTokenFactory {
         return new AccessJwtToken(accesstoken, claims);
     }
 
-    public JwtToken createRefreshToken(UCLUser userContext) {
+    public JwtToken createRefreshToken(CUser userContext) {
         if (StringUtils.isBlank(userContext.getUsername())) {
             throw new IllegalArgumentException("Cannot create JWT Token without username");
         }

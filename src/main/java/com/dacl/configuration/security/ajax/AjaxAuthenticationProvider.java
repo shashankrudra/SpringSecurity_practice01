@@ -18,18 +18,18 @@ public class AjaxAuthenticationProvider implements AuthenticationProvider {
 	}
 	/*
 	 * private final BCryptPasswordEncoder encoder; private final
-	 * UCLUserDetailsService userService;
+	 * CUserDetailsService userService;
 	 * 
-	 * //@Autowired public AjaxAuthenticationProvider(final
-	 * UCLUserDetailsService userService, final BCryptPasswordEncoder encoder) {
-	 * this.userService = userService; this.encoder = encoder; }
+	 * //@Autowired public AjaxAuthenticationProvider(final CUserDetailsService
+	 * userService, final BCryptPasswordEncoder encoder) { this.userService =
+	 * userService; this.encoder = encoder; }
 	 * 
 	 * @Override public Authentication authenticate(Authentication
 	 * authentication) throws AuthenticationException { return authentication;
 	 * /* Assert.notNull(authentication, "No authentication data provided");
 	 * 
-	 * UCLUser username = (UCLUser) authentication.getPrincipal(); String
-	 * password = (String) authentication.getCredentials();
+	 * CUser username = (CUser) authentication.getPrincipal(); String password =
+	 * (String) authentication.getCredentials();
 	 * 
 	 * User user = userService.getByUsername(username).orElseThrow(() -> new
 	 * UsernameNotFoundException("User not found: " + username));

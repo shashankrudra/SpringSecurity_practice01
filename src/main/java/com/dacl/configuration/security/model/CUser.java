@@ -8,11 +8,11 @@ import org.springframework.security.core.userdetails.User;
 /**
  * 
  */
-public class UCLUser extends User {
+public class CUser extends User {
 
 	private static final long serialVersionUID = 1L;
 
-	public UCLUser(String userName, String password, List<GrantedAuthority> authorities) {
+	public CUser(String userName, String password, List<GrantedAuthority> authorities) {
 		super(userName, password, authorities);
 	}
 

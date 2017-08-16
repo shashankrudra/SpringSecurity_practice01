@@ -10,7 +10,7 @@
 	 
 	<!-- <context:annotation-config> -->
   
-  <display-name>UCL_Simple</display-name>
+  <display-name>SpringSecurity_practice01</display-name>
   <servlet>
 		 <servlet-name>rest</servlet-name>
 		 <servlet-class>

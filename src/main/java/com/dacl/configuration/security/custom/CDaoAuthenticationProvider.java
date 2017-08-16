@@ -8,9 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UCLDaoAuthenticationProvider extends DaoAuthenticationProvider {
+public class CDaoAuthenticationProvider extends DaoAuthenticationProvider {
 
-	private static final Logger logger = LoggerFactory.getLogger(UCLDaoAuthenticationProvider.class);
+	private static final Logger logger = LoggerFactory.getLogger(CDaoAuthenticationProvider.class);
 	
 	@Override
 	protected void additionalAuthenticationChecks(UserDetails userDetails,

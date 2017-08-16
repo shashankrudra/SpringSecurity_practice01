@@ -24,7 +24,7 @@ import com.dacl.configuration.security.jwt.RefreshToken;
 import com.dacl.configuration.security.jwt.TokenExtractor;
 import com.dacl.configuration.security.jwt.TokenVerifier;
 import com.dacl.configuration.security.model.JwtToken;
-import com.dacl.configuration.security.model.UCLUser;
+import com.dacl.configuration.security.model.CUser;
 import com.dacl.exception.InvalidJwtTokenException;
 
 @RestController
@@ -59,7 +59,7 @@ public class RefreshTokenController {
 		}
 
 		String subject = refreshToken.getSubject();
-		UCLUser user = (UCLUser) userDetailsService.loadUserByUsername(subject);
+		CUser user = (CUser) userDetailsService.loadUserByUsername(subject);
 		return tokenFactory.createAccessJwtToken(user);
 	}
 }

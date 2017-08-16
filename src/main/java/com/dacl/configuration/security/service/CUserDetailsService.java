@@ -11,19 +11,19 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.dacl.configuration.security.model.UCLUser;
+import com.dacl.configuration.security.model.CUser;
 
 /**
- * UCLUserDetailsService loads user specific details if user is found in the
+ * CUserDetailsService loads user specific details if user is found in the
  * database. This includes roles,resources and privileges. If user is not found
  * in the database with the email entered an exception is thrown indicating that
  * authentication of the user failed.
  */
-@Service("uclUserDetailsService")
+@Service("cUserDetailsService")
 @Transactional
-public class UCLUserDetailsService implements UserDetailsService {
+public class CUserDetailsService implements UserDetailsService {
 
-	public UCLUserDetailsService() {
+	public CUserDetailsService() {
 		super();
 	}
 
@@ -41,7 +41,7 @@ public class UCLUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(final String email) throws UsernameNotFoundException {
 		List<GrantedAuthority> authorities = new ArrayList<>();
 		authorities.add(new SimpleGrantedAuthority("user"));
-		return new UCLUser("dummy", "dummy", authorities);
+		return new CUser("dummy", "dummy", authorities);
 	}
 
 }

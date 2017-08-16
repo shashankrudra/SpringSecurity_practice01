@@ -17,7 +17,6 @@
 	<s:http pattern="/appresources/**" security="none"/>
 	<s:http pattern="/package.json" security="none"/>
 	<s:http pattern="/webpack.config.js" security="none"/>
-	<s:http pattern="/UCL_Simple/webpack-dev-server.js" security="none"/>
 	<s:http pattern="/webpack-dev-server.js" security="none"/>
 	<s:http pattern="/vendor.bundle.js" security="none"/>
 	<s:http pattern="/polyfills.bundle.js" security="none"/>
@@ -46,34 +45,34 @@
     </s:http>
     
    <!--  <s:authentication-manager>
-	    <s:authentication-provider ref="uCLDaoAuthenticationProvider"/>
+	    <s:authentication-provider ref="cDaoAuthenticationProvider"/>
 	</s:authentication-manager> -->
 	
 	<bean id="authenticationManager" class="org.springframework.security.authentication.ProviderManager">
 		<constructor-arg>
 			<list>
-				<ref bean="uCLDaoAuthenticationProvider"/>
+				<ref bean="cDaoAuthenticationProvider"/>
 				<ref bean="jwtAuthenticationProvider"/>
 			</list>
 		</constructor-arg>
 	</bean>
     
-    <bean id="uclUserDetailsService" class="com.dacl.configuration.security.service.UCLUserDetailsService" />
+    <bean id="cUserDetailsService" class="com.dacl.configuration.security.service.CUserDetailsService" />
     
     <!-- <bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
-    	<property name="userDetailsService" ref="uclUserDetailsService" />
+    	<property name="userDetailsService" ref="cUserDetailsService" />
     </bean> -->
     
-    <bean id="uCLDaoAuthenticationProvider" class="com.dacl.configuration.security.custom.UCLDaoAuthenticationProvider">
+    <bean id="cDaoAuthenticationProvider" class="com.dacl.configuration.security.custom.CDaoAuthenticationProvider">
 		<property name="userDetailsService">
-			<ref bean="uclUserDetailsService" />
+			<ref bean="cUserDetailsService" />
 		</property>
 	</bean>
 
 	<!-- <bean id="authenticationManagerBuilder" class="org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder">
 		<property name="authenticationProviders">
 			<list>
-				<bean id="uclDaoAuthProvider"/>
+				<bean id="cDaoAuthProvider"/>
 				<bean id="jwtAuthenticationProvider"/>
 			</list>
 		</property>
