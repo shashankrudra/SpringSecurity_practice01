@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,21 +21,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dacl.configuration.security.jwt.JwtSettings;
 import com.dacl.configuration.security.jwt.JwtTokenFactory;
-import com.dacl.configuration.security.jwt.RawAccessJwtToken;
-import com.dacl.configuration.security.jwt.RefreshToken;
 import com.dacl.configuration.security.jwt.TokenExtractor;
 import com.dacl.configuration.security.jwt.TokenVerifier;
-import com.dacl.configuration.security.model.JwtToken;
 import com.dacl.configuration.security.model.CUser;
+import com.dacl.configuration.security.model.JwtToken;
+import com.dacl.configuration.security.model.RawAccessJwtToken;
+import com.dacl.configuration.security.model.RefreshToken;
 import com.dacl.exception.InvalidJwtTokenException;
 
 @RestController
 @RequestMapping(value = "/api/auth")
+@PropertySource({ "classpath:jwt/jwt-security.properties" })
 public class RefreshTokenController {
 	@Autowired
 	private JwtTokenFactory tokenFactory;
 	@Autowired
 	private JwtSettings jwtSettings;
+	@Autowired
+	private Environment env;
 	@Autowired
 	private UserDetailsService userDetailsService;
 	@Autowired
@@ -49,9 +54,9 @@ public class RefreshTokenController {
 		String tokenPayload = tokenExtractor.extract(request.getHeader(JWT_TOKEN_HEADER_PARAM));
 
 		RawAccessJwtToken rawToken = new RawAccessJwtToken(tokenPayload);
+		RefreshToken refreshToken = RefreshToken.create(rawToken, env.getProperty("tokenSigningKey"));
 		// RefreshToken refreshToken = RefreshToken.create(rawToken,
-		// env.getProperty("tokenSigningKey"));
-		RefreshToken refreshToken = RefreshToken.create(rawToken, jwtSettings.getTokenSigningKey());
+		// jwtSettings.getTokenSigningKey());
 
 		String jti = refreshToken.getJti();
 		if (!tokenVerifier.verify(jti)) {

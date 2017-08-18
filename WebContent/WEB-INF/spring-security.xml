@@ -2,10 +2,13 @@
 <beans xmlns:s="http://www.springframework.org/schema/security"
     xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:util="http://www.springframework.org/schema/util"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
     http://www.springframework.org/schema/security
-    http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+    http://www.springframework.org/schema/security/spring-security-4.2.xsd
+    http://www.springframework.org/schema/util 
+	http://www.springframework.org/util/spring-util-4.3.xsd">
 
 	<s:http pattern="/src/**" security="none"/>
 	<s:http pattern="/config/**" security="none"/>
@@ -115,9 +118,12 @@
 		<constructor-arg index="3" value="4" />
 	</bean>
 	
-	<bean id="jwtAuthenticationProvider" class="com.dacl.configuration.security.jwt.JwtAuthenticationProvider">
+	
+	<bean id="jwtAuthenticationProvider" class="com.dacl.configuration.security.jwt.JwtAuthenticationProvider" > 
 		<constructor-arg ref="jwtSettings" />
 	</bean>
+	
+<!-- 	<util:properties id="env" location="classpath:jwt/jwt-security.properties"/> -->
 	
 	<bean id="tokenFactory" class="com.dacl.configuration.security.jwt.JwtTokenFactory">
 		<constructor-arg ref="jwtSettings" />
